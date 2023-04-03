@@ -1,0 +1,40 @@
+.signUpcontainer {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.signUpForm {
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid gray;
+}
+.signUpH3 {
+  margin-bottom: 20px;
+}
+.signUpInputEmail,
+.signUpInputPassword {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+}
+.siginUpBtn {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 16px;
+  cursor: pointer;
+}
+.lPsiginup {
+  margin-top: 20px;
+  color: blue;
+}
