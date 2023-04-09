@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 // type Params = { [key: string]: string | undefined };
 
@@ -11,12 +11,6 @@ interface LocationState {
     symbol: string;
   };
 }
-
-// |---------------------------------
-// |
-// |     강좌 5분 01초
-// |
-// |---------------------------------
 
 interface InfoData {
   id: string;
@@ -96,10 +90,42 @@ const Title = styled.h1`
   color: ${(p) => p.theme.accentColor};
 `;
 
+const Contente = styled.div`
+  height: 400px;
+  width: 500px;
+`;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #292929;
+  border-radius: 10px;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  span:first-child {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+
+const Description = styled.p`
+  margin: 10px 20px;
+  line-height: 20px;
+`;
+
 function Coin() {
   const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
   const { state } = useLocation() as LocationState;
+
   // api가 object니까 useState가 {}로 됨
   const [info, setInfo] = useState<InfoData>();
   const [price, setPrice] = useState<PriceData>();
@@ -115,20 +141,56 @@ function Coin() {
         await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
       ).json();
       console.log(priceDate);
-      //
-      setLoading(false);
       setInfo(infoData);
       setPrice(priceDate);
+      setLoading(false);
     })();
-  }, []);
+  }, [coinId]);
 
   return (
     <Container>
       <Header>
-        <Title>{state.name}</Title>
+        <Title>
+          {state?.name ? state.name : loading ? "Loading..." : info?.name}
+        </Title>
       </Header>
-      {loading ? <Loader>Loading...</Loader> : price?.quotes.USD.price}
+      <Contente>
+        {loading ? (
+          <Loader>Loading...</Loader>
+        ) : (
+          <>
+            <Overview>
+              <OverviewItem>
+                <span>Rank:</span>
+                <span>{info?.rank}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>SYMBOL:</span>
+                <span>${info?.symbol}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>OPEN SOURCE:</span>
+                <span>{info?.open_source ? "Yes" : "No"}</span>
+              </OverviewItem>
+            </Overview>
+            {/*  */}
+            <Description>{info?.description}</Description>
+            {/*  */}
+            <Overview>
+              <OverviewItem>
+                <span>Total Suply:</span>
+                <span>{price?.total_supply}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Max Supplay:</span>
+                <span>{price?.max_supply}</span>
+              </OverviewItem>
+            </Overview>
+          </>
+        )}
+      </Contente>
     </Container>
   );
 }
+
 export default Coin;
