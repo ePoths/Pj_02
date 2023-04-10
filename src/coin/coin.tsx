@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 // type Params = { [key: string]: string | undefined };
 
@@ -186,6 +186,7 @@ function Coin() {
                 <span>{price?.max_supply}</span>
               </OverviewItem>
             </Overview>
+            <Outlet></Outlet>
           </>
         )}
       </Contente>
