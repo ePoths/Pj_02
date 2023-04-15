@@ -30,7 +30,6 @@ function App() {
       <br />
       <MyLink to="signUp">회원 가입 페이지로 이동</MyLink>
       <br />
-      <br />
       <button onClick={onClick}>Click</button>
       <br />
       {loading ? null : (

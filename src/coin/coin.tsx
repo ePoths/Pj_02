@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 // type Params = { [key: string]: string | undefined };
@@ -74,6 +75,15 @@ const Container = styled.div`
   margin: 0px auto;
 `;
 
+const MyLink = styled(Link)`
+  display: block;
+  color: #fff;
+  margin-right: 20px;
+  &:hover {
+    text-decoration: underline 1px #ffffff;
+  }
+`;
+
 const Header = styled.header`
   height: 12vh;
   display: flex;
@@ -114,6 +124,12 @@ const OverviewItem = styled.div`
     text-transform: uppercase;
     margin-bottom: 5px;
   }
+`;
+
+const Div = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const Description = styled.p`
@@ -186,6 +202,10 @@ function Coin() {
                 <span>{price?.max_supply}</span>
               </OverviewItem>
             </Overview>
+            <Div>
+              <MyLink to="price">Price</MyLink>
+              <MyLink to="chart">Chart</MyLink>
+            </Div>
             <Outlet></Outlet>
           </>
         )}
